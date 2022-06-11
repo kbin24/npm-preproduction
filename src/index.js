@@ -43,6 +43,10 @@ httpServer.on('request', (req, res) => {
         proxyRes.pipe(res)
     })
     req.pipe(proxyRequest)
+    //防止请求错误时程序崩掉
+    proxyRequest.on('error', (err)=>{
+        res.end()
+    })
 })
 
 httpServer.listen(7700,()=>{
